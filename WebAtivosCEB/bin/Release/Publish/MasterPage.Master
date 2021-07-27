@@ -1,0 +1,283 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="WebAtivosCEB.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Web Ativos CEB</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <link href="Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+        <script src="Scripts/jquery-3.5.1.min.js"></script>
+        <script src="Scripts/bootstrap.min.js"></script>
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+
+    <script>
+        function abrirModalCriarCategoria() {
+            $('#modalCriarCategoria').modal();
+        }
+    </script>
+
+    <script>
+        function abrirModalCriarFabricante() {
+            $('#modalCriarFabricante').modal();
+        }
+    </script>
+
+    <script>
+        function abrirModalCriarLocal() {
+            $('#modalCriarLocal').modal();
+        }
+    </script>
+
+    <script>
+        function abrirModalErroFaltamInformacoes() {
+            $('#modalErroFaltamInformacoes').modal();
+        }
+    </script>
+
+    <script>
+        function abrirModalErro() {
+            $('#modalErro').modal();
+        }
+    </script>
+
+    <script>
+        function abrirModalCriadoSucesso() {
+            $('#modalCriadoSucesso').modal();
+        }
+    </script>
+
+    <script>
+        function abrirModalLogs() {
+            $('#modalLogs').modal();
+        }
+    </script>
+
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div class="row" id="areaTitulo">
+            <img style="padding-left: 20px" src="http://srvceb01/webativos/logo_ceb_branco4.png" />
+            <h1 id="titulo">Web Ativos CEB</h1>
+        </div>
+        <div id="barraNavegacao">
+            <nav class="navbar navbar-expand-lg navbar-light arrow">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li id="telaAtivos" style="border-radius: 8px 8px" runat="server" class="nav-item">
+                        <h5>
+                            <asp:HyperLink ID="LinkDefault" ForeColor="White" class="nav-link" NavigateUrl="~/Default.aspx?active=a" runat="server">Ativos</asp:HyperLink>
+                        </h5>
+                    </li>
+                    <li id="telaReparos" style="border-radius: 8px 8px" runat="server" class="nav-item">
+                        <h5>
+                            <asp:HyperLink ID="LinkReparos" ForeColor="White" class="nav-link" NavigateUrl="~/Reparos.aspx?active=b" runat="server">Reparos</asp:HyperLink>
+                        </h5>
+                    </li>
+                    <li id="telaRelatorios" style="border-radius: 8px 8px" runat="server" class="nav-item">
+                        <h5>
+                            <asp:HyperLink ID="LinkRelatorios" ForeColor="White" Visible="false" class="nav-link" NavigateUrl="~/Relatorios.aspx?active=c" runat="server">Relatórios</asp:HyperLink>
+                        </h5>
+                    </li>
+                    <li id="telaEditaAtivos" visible="false" style="border-radius: 8px 8px; background-color: #28A0B8;" runat="server" class="nav-item">
+                        <h5 style="color: white" class="nav-link">Edição</h5>
+                    </li>
+                </ul>
+                <div class="form-inline my-2 my-lg-0">
+                    <label style="padding-right: 10px; color: white">Gerenciar:</label>
+                    <asp:DropDownList ID="DropDownListGerenciar" OnSelectedIndexChanged="DropDownListGerenciar_SelectedIndexChanged"
+                        AutoPostBack="true" CssClass="btn btn-info my-2 my-sm-0" runat="server">
+                        <asp:ListItem>Escolha uma opção</asp:ListItem>
+                        <asp:ListItem>Criar Categoria</asp:ListItem>
+                        <asp:ListItem>Criar Local</asp:ListItem>
+                        <asp:ListItem>Criar Fabricante</asp:ListItem>
+                        <asp:ListItem>Logs do sistema</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+            </nav>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <asp:GridView ID="GridView1" Visible="false" runat="server"></asp:GridView>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+        <div class="modal fade" id="modalCriarCategoria" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Criar Categoria</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6>Nome da categoria:</h6>
+                                    <br />
+                                    <asp:TextBox ID="txtNomeCategoria" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <table>
+                            <tr>
+                                <td>
+                                    <asp:Button ID="btnCriarCategoria" OnClick="btnCriarCategoria_Click" class="btn btn-success" runat="server" Text="Criar" />
+                                </td>
+                                <td>
+                                    <asp:Button ID="btnCancelarCategoria" class="btn btn-danger" runat="server" Text="Cancelar" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalCriarFabricante" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Criar Fabricante</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6>Nome do fabricante:</h6>
+                                    <br />
+                                    <asp:TextBox ID="txtNomeFabricante" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <table>
+                            <tr>
+                                <td>
+                                    <asp:Button ID="btnCriarFabricante" OnClick="btnCriarFabricante_Click" class="btn btn-success" runat="server" Text="Criar" />
+                                </td>
+                                <td>
+                                    <asp:Button ID="btnCancelarFabricante" class="btn btn-danger" runat="server" Text="Cancelar" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalCriarLocal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Criar Local</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6>Nome do local:</h6>
+                                    <br />
+                                    <asp:TextBox ID="txtNomeLocal" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <table>
+                            <tr>
+                                <td>
+                                    <asp:Button ID="btnCriarLocal" OnClick="btnCriarLocal_Click" class="btn btn-success" runat="server" Text="Criar" />
+                                </td>
+                                <td>
+                                    <asp:Button ID="btnCancelarLocal" class="btn btn-danger" runat="server" Text="Cancelar" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalErroFaltamInformacoes" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6></h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="http://srvceb01/webativos/sucesso1.png" style="padding: 10px" />
+                                </div>
+                                <div class="col-10" style="align-self:center">
+                                    <asp:Label ID="LabelFaltamInformacoes" runat="server" style="font-weight:500"></asp:Label>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalErro" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6></h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="http://srvceb01/webativos/sucesso1.png" style="padding: 10px" />
+                                </div>
+                                <div class="col-10" style="align-self:center">
+                                    <asp:Label ID="LabelErro" runat="server" style="font-weight:500"></asp:Label>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalCriadoSucesso" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="http://srvceb01/webativos/sucesso1.png" style="padding: 10px" />
+                                </div>
+                                <div class="col-10" style="align-self:center">
+                                    <asp:Label ID="LabelCriadoSucesso" runat="server" style="font-weight:500"></asp:Label>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

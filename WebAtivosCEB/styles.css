@@ -1,0 +1,14 @@
+﻿#barraNavegacao {
+    background-color: #63acc1;
+}
+
+#areaTitulo {
+    padding: 20px;
+    background-color: #007792;
+}
+
+#titulo {
+    padding-left: 50px;
+    padding-top: 10px;
+    color: white
+}
